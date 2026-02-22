@@ -1,0 +1,521 @@
+---
+// src/pages/usluge.astro
+import Layout from '../layouts/layout.astro';
+
+const usluge = [
+  {
+    kategorija: "Razvoj softvera",
+    ikonica: "💻",
+    opis: "Prilagodljiv pristup - od samostalnih developera do timskog rada",
+    stavke: [
+      { 
+        naziv: "Individualni rad - Odoo platforma", 
+        opis: "Specijalizovani razvoj na Odoo platformi (Python/PostgreSQL):", 
+        detalji: [
+          "🛠️ Izrada novih Odoo modula po vašoj specifikaciji",
+          "⚙️ Customizacija postojećih modula (CRM, prodaja, finansije, inventar)",
+          "📦 Migracija na nove Odoo verzije (13 → 18, 14 → 18, itd.)",
+          "🔧 Integracija sa domaćim sistemima (SEF, banke, poreska uprava)"
+        ],
+        cena: "4.500 din/sat"
+      },
+      { 
+        naziv: "Individualni rad - PHP/MySQL", 
+        opis: "Razvoj u PHP ekosistemu:", 
+        detalji: [
+          "🔌 Izrada custom WordPress plugina po meri",
+          "🌐 Prilagođene web aplikacije u PHP/MySQL",
+          "🔄 Integracija sa postojećim sistemima",
+          "⚡ Optimizacija performansi postojećih aplikacija"
+        ],
+        cena: "4.000 din/sat"
+      },
+      { 
+        naziv: "Individualni rad - Astro/JavaScript", 
+        opis: "Moderne web aplikacije u Astro/JavaScript:", 
+        detalji: [
+          "⚡ Izrada ultra-brzih sajtova u Astro-u",
+          "📱 Single Page aplikacije",
+          "🔍 SEO optimizacija i performanse",
+          "🔄 Integracija sa različitim API-ima"
+        ],
+        cena: "4.200 din/sat"
+      },
+      { 
+        naziv: "BeOdoo tim - Odoo platforma", 
+        opis: "Timski rad specijalizovan za Odoo ekosistem:", 
+        detalji: [
+          "⚖️ Razvoj specijalizovanih modula za advokatske kancelarije",
+          "🏛️ Prilagođena rešenja za pravne službe i notare",
+          "📋 Upravljanje predmetima, rokovima, dokumentacijom",
+          "💰 Naplata i finansijsko praćenje po predmetima",
+          "📊 Izveštaji prilagođeni advokatskoj praksi"
+        ],
+        cena: "Kontakt"
+      }
+    ]
+  },
+  {
+    kategorija: "IT konsalting",
+    ikonica: "👨‍💼",
+    opis: "Stručna podrška u svim tehnologijama koje koristimo",
+    stavke: [
+      { 
+        naziv: "PHP / MySQL savetovanje", 
+        opis: "Optimizacija postojećih aplikacija, refaktorisanje, bezbednosne provere, WordPress saveti", 
+        cena: "4.500 din/sat" 
+      },
+      { 
+        naziv: "Python / PostgreSQL / Odoo", 
+        opis: "Odoo implementacija, optimizacija modula, migracije, skaliranje", 
+        cena: "5.000 din/sat" 
+      },
+      { 
+        naziv: "Astro / JavaScript saveti", 
+        opis: "Arhitektura frontend aplikacija, SEO optimizacija, performanse", 
+        cena: "4.200 din/sat" 
+      },
+      { 
+        naziv: "IT strategija", 
+        opis: "Dugoročno planiranje tehnološkog razvoja - izbor pravog stacka za vaše potrebe", 
+        cena: "Po dogovoru" 
+      }
+    ]
+  },
+  {
+    kategorija: "Gotova rešenja",
+    ikonica: "📦",
+    opis: "Proizvodi razvijeni u našim tehnologijama, spremni za implementaciju",
+    stavke: [
+      { 
+        naziv: "SaaS za prevoz putnika", 
+        opis: "Kompletno rešenje razvijeno u PHP/MySQL. Obuhvata planiranje, putne naloge, e-fakture, troškove i izveštaje.", 
+        detalji: [
+          "📋 Šifarnici (partneri, vozači, vozila)",
+          "📊 Plan angažovanja",
+          "📄 Putni nalozi sa SEF integracijom",
+          "💰 Prihodi i troškovi",
+          "📈 Finansijski izveštaji"
+        ],
+        cena: "Kontakt" 
+      },
+      { 
+        naziv: "SaaS za auto-škole (CG)", 
+        opis: "Specijalizovano za Crnu Goru, razvijeno u PHP/MySQL. Prati kandidata od upisa do svedočanstva.", 
+        detalji: [
+          "👥 Upis i praćenje kandidata",
+          "📝 Prijave ispita u AMSS CG",
+          "📊 Rezultati i statistika",
+          "🎓 Svedočanstva",
+          "💰 Evidencija naplate"
+        ],
+        cena: "Kontakt" 
+      },
+      { 
+        naziv: "Odoo za advokatske kancelarije", 
+        opis: "Specijalizovani Odoo modul za upravljanje advokatskom praksom:", 
+        detalji: [
+          "⚖️ Evidencija predmeta i rokova",
+          "📁 Upravljanje dokumentacijom po predmetima",
+          "💰 Praćenje utrošenog vremena i naplate",
+          "📊 Izveštaji po klijentima i predmetima",
+          "🔔 Podsetnici za ročišta i administrativne rokove"
+        ],
+        cena: "Kontakt" 
+      }
+    ]
+  },
+  {
+    kategorija: "Podrška i održavanje",
+    ikonica: "🔧",
+    opis: "Kontinuirana podrška za sve tri platforme",
+    stavke: [
+      { 
+        naziv: "PHP/MySQL održavanje", 
+        opis: "Redovne nadogradnje, sigurnosni backup, optimizacija performansi, WordPress plugini", 
+        cena: "4.500 din/mes" 
+      },
+      { 
+        naziv: "Python/PostgreSQL/Odoo", 
+        opis: "Odoo nadogradnje, održavanje baza, migracije, hitne intervencije", 
+        cena: "5.500 din/mes" 
+      },
+      { 
+        naziv: "Astro/JS održavanje", 
+        opis: "Ažuriranje zavisnosti, optimizacija build-a, SEO podešavanja", 
+        cena: "4.000 din/mes" 
+      },
+      { 
+        naziv: "Hitne intervencije", 
+        opis: "Rešavanje problema u roku od 24h (sve platforme)", 
+        cena: "6.500 din/sat" 
+      },
+      { 
+        naziv: "Edukacija", 
+        opis: "Obuka zaposlenih za rad sa softverom - prilagođeno vašem stack-u", 
+        cena: "3.500 din/sat" 
+      }
+    ]
+  },
+  {
+    kategorija: "Tehnološki stack",
+    ikonica: "⚙️",
+    opis: "Tehnologije koje koristimo kroz sve usluge",
+    stavke: [
+      { 
+        naziv: "PHP / MySQL / WordPress", 
+        opis: "Zreo i pouzdan ekosistem za web aplikacije. Koristimo za SaaS rešenja, prilagođene aplikacije i WordPress development.", 
+        cena: "-" 
+      },
+      { 
+        naziv: "Python / PostgreSQL / Odoo", 
+        opis: "Skalabilna rešenja, posebno za Odoo platformu i kompleksne sisteme. Specijalizacija za advokatske kancelarije.", 
+        cena: "-" 
+      },
+      { 
+        naziv: "Astro / JavaScript", 
+        opis: "Moderan framework za ultra-brze sajtove i aplikacije. Fokus na performanse i SEO.", 
+        cena: "-" 
+      }
+    ]
+  }
+];
+---
+
+<Layout title="Usluge | Art-Info" description="Pregled svih usluga koje nudimo po tehnologijama">
+  
+  <div class="usluge-header">
+    <h1>Naše <span class="accent">usluge</span></sat1>
+    <p class="subtitle">PHP/MySQL/WordPress • Python/PostgreSQL/Odoo • Astro/JavaScript</p>
+  </div>
+  
+  <div class="usluge-grid">
+    {usluge.map(kategorija => (
+      <div class="kategorija-card">
+        <div class="kategorija-header">
+          <span class="kategorija-ikonica">{kategorija.ikonica}</span>
+          <div>
+            <h2>{kategorija.kategorija}</sat2>
+            {kategorija.opis && <p class="kategorija-opis">{kategorija.opis}</p>}
+          </div>
+        </div>
+        
+        <div class="stavke-lista">
+          {kategorija.stavke.map(stavka => (
+            <div class="stavka-card">
+              <div class="stavka-info">
+                <h3>{stavka.naziv}</sat3>
+                <p>{stavka.opis}</p>
+                {stavka.detalji && (
+                  <ul class="stavka-detalji">
+                    {stavka.detalji.map(d => <li>{d}</li>)}
+                  </ul>
+                )}
+              </div>
+              <div class="stavka-cena">
+                {stavka.cena === "Kontakt" ? (
+                  <a href="/kontakt" class="cena-link">Zatražite ponudu</a>
+                ) : stavka.cena !== "-" ? (
+                  <span class="cena">{stavka.cena}</span>
+                ) : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Zajednička CTA -->
+  <div class="cta-section">
+    <h2>Izaberite pravu tehnologiju za vaš projekat</sat2>
+    <p>Pomažemo vam da odlučite koji stack najbolje odgovara vašim potrebama.</p>
+    <div class="cta-buttons">
+      <a href="/kontakt" class="btn-primary">Zakažite besplatne konsultacije</a>
+      <a href="/resenja" class="btn-secondary">Pogledajte gotova rešenja</a>
+    </div>
+  </div>
+  
+</Layout>
+
+<style>
+  .usluge-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .usluge-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .accent {
+    color: var(--primary-medium);
+    font-weight: 300;
+  }
+  
+  .subtitle {
+    color: var(--gray-600);
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  .usluge-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  
+  .kategorija-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--primary-light);
+    transition: all 0.3s ease;
+  }
+  
+  .kategorija-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .kategorija-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--gray-200);
+    padding-bottom: 1rem;
+  }
+  
+  .kategorija-ikonica {
+    font-size: 3rem;
+    line-height: 1;
+  }
+  
+  .kategorija-header h2 {
+    color: var(--primary-dark);
+    font-size: 1.8rem;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .kategorija-opis {
+    color: var(--gray-600);
+    margin: 0;
+    font-size: 1rem;
+  }
+  
+  .stavke-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .stavka-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: var(--gray-100);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .stavka-card:hover {
+    background: var(--gray-200);
+  }
+  
+  .stavka-info {
+    flex: 1;
+  }
+  
+  .stavka-info h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stavka-info p {
+    color: var(--gray-700);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  
+  .stavka-detalji {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.5rem;
+    list-style: none;
+  }
+  
+  .stavka-detalji li {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+    position: relative;
+  }
+  
+  .stavka-detalji li::before {
+    content: "•";
+    color: var(--primary-medium);
+    font-weight: bold;
+    position: absolute;
+    left: -1rem;
+  }
+  
+  .stavka-cena {
+    min-width: 150px;
+    text-align: right;
+    margin-left: 1rem;
+  }
+  
+  .cena {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    background: white;
+    padding: 0.3rem 1rem;
+    border-radius: 30px;
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+  }
+  
+  .cena-link {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: var(--primary-dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+  
+  .cena-link:hover {
+    background: var(--primary-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .cta-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--gray-100) 0%, white 100%);
+    border-radius: 16px;
+    margin: 3rem 0;
+  }
+  
+  .cta-section h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+  }
+  
+  .cta-section p {
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary-dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background: var(--primary-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid var(--primary-dark);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  @media (max-width: 768px) {
+    .usluge-header h1 {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+    }
+    
+    .kategorija-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .kategorija-ikonica {
+      font-size: 2.5rem;
+    }
+    
+    .kategorija-header h2 {
+      font-size: 1.5rem;
+    }
+    
+    .stavka-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .stavka-cena {
+      text-align: left;
+      width: 100%;
+      margin-left: 0;
+    }
+    
+    .cena-link {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .cta-section {
+      padding: 2rem;
+    }
+    
+    .cta-section h2 {
+      font-size: 1.5rem;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

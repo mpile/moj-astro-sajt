@@ -1,0 +1,560 @@
+---
+// src/pages/resenja/auto-skole.astro
+import Layout from '../../layouts/layout.astro';
+
+// Konfiguracija za auto-škole - Odoo/Python/PostgreSQL
+const proizvod = {
+  naziv: 'SaaS za auto-škole',
+  ikonica: '🚗',
+  boja: '#b76e3c', // topla narandžasta
+  naslov: 'Kompletno Odoo rešenje za auto-škole',
+  opis: 'Sve na jednom mestu - od upisa kandidata do svedočanstava i evidencije naplate. Razvijeno u Odoo (Python/PostgreSQL).',
+  
+  // Grupisano prema funkcionalnostima
+  moduli: [
+    {
+      naziv: 'Kandidati',
+      ikonica: '👥',
+      stavke: [
+        'Upis novih kandidata - digitalna evidencija',
+        'Lični podaci, fotografija, potrebna dokumenta',
+        'Istorija časova i napredak kandidata',
+        'Medicinski pregledi i uverenja - rok trajanja',
+        'Kategorije vozačkih dozvola (B, C, D, itd.)'
+      ]
+    },
+    {
+      naziv: 'Prijave ispita',
+      ikonica: '📝',
+      stavke: [
+        'Prijava za teorijski ispit',
+        'Prijava za praktični ispit',
+        'Automatsko generisanje potrebne dokumentacije',
+        'Praćenje statusa prijave',
+        'Rokovi i termini ispita'
+      ]
+    },
+    {
+      naziv: 'Rezultati ispita',
+      ikonica: '📊',
+      stavke: [
+        'Unos rezultata teorijskog ispita',
+        'Unos rezultata praktičnog ispita',
+        'Prolaznost po kandidatima i instruktorima',
+        'Statistika uspešnosti auto-škole',
+        'Analiza najčešćih grešaka'
+      ]
+    },
+    {
+      naziv: 'Svedočanstva',
+      ikonica: '🎓',
+      stavke: [
+        'Automatsko generisanje svedočanstava',
+        'Štampanje svedočanstva po položenom ispitu',
+        'Evidencija izdatih svedočanstava',
+        'Arhiva svih izdatih dokumenata'
+      ]
+    },
+    {
+      naziv: 'Evidencija naplate',
+      ikonica: '💰',
+      stavke: [
+        'Cenovnik po kategorijama',
+        'Uplate kandidata - rate i jednokratno',
+        'Prate se neplaćeni iznosi',
+        'Podsetnici za uplatu',
+        'Finansijski izveštaji po periodima',
+        'PDV obračun'
+      ]
+    },
+    {
+      naziv: 'Instruktori',
+      ikonica: '👨‍🏫',
+      stavke: [
+        'Evidencija instruktora',
+        'Raspored časova po instruktorima',
+        'Zarade instruktora',
+        'Opterećenje instruktora'
+      ]
+    },
+    {
+      naziv: 'Vozila',
+      ikonica: '🚘',
+      stavke: [
+        'Evidencija vozila u auto-školi',
+        'Tehnički pregledi i registracija',
+        'Dodela vozila kandidatima za ispit',
+        'Troškovi održavanja po vozilu'
+      ]
+    },
+    {
+      naziv: 'Odoo integracija',
+      ikonica: '🔗',
+      stavke: [
+        'Potpuna integracija sa Odoo ekosistemom',
+        'Povezivanje sa Odoo CRM, finansijama i inventarom',
+        'Korišćenje standardnih Odoo modula',
+        'Lako nadogradivo i prilagodljivo'
+      ]
+    },
+    {
+      naziv: 'Izveštaji',
+      ikonica: '📈',
+      stavke: [
+        'Uspešnost kandidata po instruktorima',
+        'Finansijski izveštaj',
+        'Pregled po kategorijama vozila',
+        'Izveštaj o položenim ispitima'
+      ]
+    }
+  ],
+  
+  prednosti: [
+    'Razvijeno u Odoo (Python/PostgreSQL) - pouzdano i skalabilno',
+    'Kandidat se prati od upisa do svedočanstva - ništa ne gubite',
+    'Automatsko generisanje svih dokumenata - manje grešaka',
+    'Povećajte prolaznost praćenjem rezultata',
+    'Finansije pod kontrolom - evidencija uplata i dugovanja',
+    'Manje administracije, više vremena za instruktore',
+    'Potpuna integracija sa Odoo ekosistemom'
+  ],
+  
+  tehnologije: [
+    'Odoo (Python/PostgreSQL)', 
+    'Web aplikacija', 
+    'Bootstrap', 
+    'Odoo moduli',
+    'Prilagodljivo vašim potrebama'
+  ],
+  
+  napomena: 'Rešenje je u potpunosti razvijeno na Odoo platformi, što omogućava lako nadograđivanje i integraciju sa drugim Odoo modulima (CRM, prodaja, finansije).'
+};
+---
+
+<Layout title={`${proizvod.naziv} | noviAstro`}>
+  
+  <!-- Hero sekcija -->
+  <div class="hero" style={`background: linear-gradient(135deg, ${proizvod.boja} 0%, #8b5a2e 100%);`}>
+    <div class="hero-content">
+      <span class="hero-ikonica">{proizvod.ikonica}</span>
+      <h1>{proizvod.naziv}</h1>
+      <p class="hero-opis">{proizvod.naslov}</p>
+      <div class="hero-buttons">
+        <a href="/kontakt" class="btn-primary">Zatražite prezentaciju</a>
+        <a href="#moduli" class="btn-secondary">Istražite module</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Kratak opis -->
+  <div class="uvod">
+    <p>{proizvod.opis}</p>
+    {proizvod.napomena && (
+      <p class="napomena"><small>ℹ️ {proizvod.napomena}</small></p>
+    )}
+  </div>
+  
+  <!-- Moduli -->
+  <div id="moduli" class="moduli">
+    <h2>Kompletna <span class="accent">funkcionalnost</span></h2>
+    
+    <div class="moduli-grid">
+      {proizvod.moduli.map(modul => (
+        <div class="modul-kartica" style={`border-top-color: ${proizvod.boja}`}>
+          <div class="modul-header">
+            <span class="modul-ikonica">{modul.ikonica}</span>
+            <h3>{modul.naziv}</h3>
+          </div>
+          <ul class="modul-stavke">
+            {modul.stavke.map(stavka => (
+              <li>✓ {stavka}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Kako funkcioniše - tok kandidata -->
+  <div class="proces">
+    <h2>Tok <span class="accent">kandidata</span></h2>
+    
+    <div class="proces-koraci">
+      <div class="korak">
+        <div class="korak-broj">1</div>
+        <h4>Upis kandidata</h4>
+        <p>Unos podataka, skenirana dokumenta, odabir kategorije. Sve na jednom mestu.</p>
+      </div>
+      <div class="korak">
+        <div class="korak-broj">2</div>
+        <h4>Teorijska obuka</h4>
+        <p>Praćenje prisustva, testovi znanja, prijava za teorijski ispit.</p>
+      </div>
+      <div class="korak">
+        <div class="korak-broj">3</div>
+        <h4>Praktična obuka</h4>
+        <p>Zakazivanje časova, praćenje napretka, instruktor beleži zapažanja.</p>
+      </div>
+      <div class="korak">
+        <div class="korak-broj">4</div>
+        <h4>Ispit</h4>
+        <p>Automatsko generisanje prijave, unos rezultata, dokumentacija.</p>
+      </div>
+      <div class="korak">
+        <div class="korak-broj">5</div>
+        <h4>Svedočanstvo</h4>
+        <p>Štampanje svedočanstva, evidencija izdatih dokumenata, arhiviranje.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Prednosti -->
+  <div class="prednosti">
+    <h2>Zašto baš <span class="accent">ovo rešenje</span></h2>
+    
+    <ul class="prednosti-lista">
+      {proizvod.prednosti.map(p => (
+        <li>✅ {p}</li>
+      ))}
+    </ul>
+  </div>
+  
+  <!-- Tehnologije -->
+  <div class="tehnologije">
+    <h2>Tehnologije <span class="accent">u pozadini</span></h2>
+    
+    <div class="tehnologije-tagovi">
+      {proizvod.tehnologije.map(tech => (
+        <span class="tag" style={`background: ${proizvod.boja}`}>{tech}</span>
+      ))}
+    </div>
+  </div>
+  
+  <!-- CTA i povratak -->
+  <div class="cta" style={`background: linear-gradient(135deg, ${proizvod.boja} 0%, #9a5a31 100%);`}>
+    <h2>Modernizujte vašu auto-školu</h2>
+    <p>Prikažemo vam kako Odoo rešenje radi i prilagodimo ga vašim potrebama.</p>
+    <div class="cta-buttons">
+      <a href="/kontakt" class="btn-primary btn-veliko">Zakažite online prezentaciju</a>
+      <a href="/resenja" class="btn-povratak">← Povratak na sva rešenja</a>
+    </div>
+  </div>
+  
+</Layout>
+
+<style>
+  .hero {
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .hero-ikonica {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-opis {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: white;
+    color: var(--primary-dark);
+  }
+  
+  .btn-povratak {
+    display: inline-block;
+    margin-top: 2rem;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .btn-povratak:hover {
+    opacity: 1;
+  }
+  
+  .uvod {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-size: 1.2rem;
+    color: var(--gray-700);
+    padding: 0 1rem;
+  }
+  
+  .napomena {
+    margin-top: 1rem;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+  
+  h2 {
+    text-align: center;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .accent {
+    color: var(--primary-medium);
+    font-weight: 300;
+  }
+  
+  .moduli-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .modul-kartica {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border-top: 4px solid transparent;
+  }
+  
+  .modul-kartica:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .modul-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .modul-ikonica {
+    font-size: 2rem;
+  }
+  
+  .modul-header h3 {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .modul-stavke {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .modul-stavke li {
+    color: var(--gray-700);
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  
+  .modul-stavke li:last-child {
+    border-bottom: none;
+  }
+  
+  .proces {
+    background: linear-gradient(135deg, var(--gray-100) 0%, white 100%);
+    padding: 4rem 2rem;
+    margin-bottom: 4rem;
+    border-radius: 16px;
+  }
+  
+  .proces-koraci {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .korak {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  
+  .korak-broj {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-medium);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+  }
+  
+  .korak h4 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .korak p {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .prednosti {
+    padding: 2rem;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+  }
+  
+  .prednosti-lista {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .prednosti-lista li {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: white;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .tehnologije {
+    margin-bottom: 4rem;
+  }
+  
+  .tehnologije-tagovi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .tag {
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.95rem;
+  }
+  
+  .cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    color: white;
+  }
+  
+  .cta h2 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .cta p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
+  .btn-veliko {
+    background: white;
+    color: var(--primary-dark);
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+    }
+    
+    .moduli-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .proces-koraci {
+      grid-template-columns: 1fr;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+    
+    .tehnologije-tagovi {
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      font-size: 0.85rem;
+      padding: 0.3rem 1rem;
+    }
+  }
+</style>

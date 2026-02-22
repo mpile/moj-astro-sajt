@@ -1,11 +1,187 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// src/pages/index.astro
+import Layout from '../layouts/layout.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Početna">
+  <div class="hero">
+    <h1>Art-Info <span class="accent">doo</span></h1>
+    <p class="subtitle">IT konsulting i softverske usluge</p>
+    
+    <div class="status-message">
+      <div class="status-icon">⚖️</div>
+      <div class="status-text">
+        <h2>Status: Privremena obustava rada</h2>
+        <p>Trenutno se nalazimo u procesu likvidacije, ali sa optimizmom radimo na pronalaženju rešenja za nastavak poslovanja. Naša ekspertiza i proizvodi i dalje su dostupni.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>📊 Trenutna situacija</h3>
+      <p>Firma je u likvidaciji, ali postoji realna šansa za izlazak iz problema. U međuvremenu, <strong>naši proizvodi i usluge su i dalje u funkciji</strong> - SaaS za prevoz, auto-škole i Odoo rešenja rade i dostupni su za implementaciju.</p>
+    </div>
+    
+    <div class="info-card">
+      <h3>💡 Naša vizija</h3>
+      <p>Želimo da nastavimo da pružamo vrhunske IT usluge i izgradimo još jaču kompaniju. Već smo razvili <strong>tri platforme (PHP/MySQL, Odoo/Python, Astro/JS)</strong> i spremni za nove projekte.</p>
+    </div>
+    
+    <div class="info-card">
+      <h3>🤝 Podrška</h3>
+      <p>Hvala svim klijentima i partnerima na razumevanju. Aktivno radimo i <strong>sve obaveze izvršavamo uredno</strong>. Zajedno ćemo prevazići ove izazove i nastaviti da rastemo.</p>
+    </div>
+  </div>
+  
+  <div class="cta-section">
+    <h2>Kontaktirajte nas</h2>
+    <p>Ako imate pitanja, želite da implementirate naša rešenja ili započnete novi projekat - slobodno nas kontaktirajte.</p>
+    <a href="/kontakt" class="btn btn-primary">Pošaljite poruku</a>
+  </div>
 </Layout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .hero .accent {
+    color: var(--accent-medium);
+    font-weight: 300;
+  }
+  
+  .hero .subtitle {
+    font-size: 1.2rem;
+    color: var(--gray-200);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  
+  .status-message {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    max-width: 600px;
+    margin: 2rem auto 0;
+    border: 1px solid var(--warning);
+    text-align: left;
+  }
+  
+  .status-icon {
+    font-size: 2rem;
+  }
+  
+  .status-text h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--warning);
+  }
+  
+  .status-text p {
+    color: var(--gray-200);
+    font-size: 0.95rem;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+  }
+  
+  .info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border-top: 4px solid transparent;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-5px);
+    border-top-color: var(--accent-medium);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .info-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .info-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+  
+  .cta-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--gray-200);
+    border-radius: 16px;
+    margin: 3rem 0;
+  }
+  
+  .cta-section h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  
+  .cta-section p {
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .status-message {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

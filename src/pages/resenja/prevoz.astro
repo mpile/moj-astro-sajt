@@ -1,0 +1,526 @@
+---
+// src/pages/resenja/prevoz.astro
+import Layout from '../../layouts/layout.astro';
+
+// Konfiguracija za prevoz
+const proizvod = {
+  naziv: 'SaaS za prevoz putnika',
+  ikonica: '🚐',
+  boja: '#1e3a5f',
+  naslov: 'Kompletno rešenje za vašu prevozničku firmu',
+  opis: 'Sve na jednom mestu - od planiranja do fakturisanja i e-faktura. Povećajte efikasnost i smanjite administrativne troškove.',
+  
+  // Grupisano prema poslovnim procesima
+  moduli: [
+    {
+      naziv: 'Planiranje i raspored',
+      ikonica: '📅',
+      stavke: [
+        'Jednostavno zakazivanje vožnji - unesite samo osnovne podatke',
+        'Automatska dodela vozača i vozila prema raspoloživosti',
+        'Pregled angažovanja po vozilima i vozačima',
+        'Lako praćenje svih planiranih vožnji na jednom mestu'
+      ]
+    },
+    {
+      naziv: 'Putni nalozi',
+      ikonica: '📋',
+      stavke: [
+        'Automatsko generisanje putnih naloga iz plana',
+        'Podrška za iznajmljena vozila',
+        'Evidencija utroška goriva po autobusu',
+        'Praćenje pređene kilometraže'
+      ]
+    },
+    {
+      naziv: 'Poslovanje i finansije',
+      ikonica: '💰',
+      stavke: [
+        'Jednostavno fakturisanje - predračuni i gotovinski prihodi',
+        'Pregled prihoda po autobusu i liniji',
+        'Evidencija svih troškova (gorivo, održavanje, plate)',
+        'Finansijski izveštaji za knjigovodstvo'
+      ]
+    },
+    {
+      naziv: 'E-fakture i SEF',
+      ikonica: '📧',
+      stavke: [
+        'Izdavanje e-faktura u skladu sa propisima',
+        'Automatsko slanje u SEF sistem',
+        'Pregled izdatih i primljenih e-faktura',
+        'Praćenje plaćanja i neizmirenih obaveza'
+      ]
+    },
+    {
+      naziv: 'Vozni park',
+      ikonica: '🚌',
+      stavke: [
+        'Evidencija vozila i tehničkih pregleda',
+        'Planiranje i evidencija servisa',
+        'Šifarnik servisera i troškova održavanja',
+        'Praćenje troškova po vozilu'
+      ]
+    },
+    {
+      naziv: 'Vozači',
+      ikonica: '👨‍✈️',
+      stavke: [
+        'Evidencija vozača i njihovih kvalifikacija',
+        'Planiranje radnog vremena',
+        'Praćenje radnih sati i prekovremenog rada',
+        'Mesečni pregled angažovanja po vozačima'
+      ]
+    },
+    {
+      naziv: 'Partneri i klijenti',
+      ikonica: '🤝',
+      stavke: [
+        'Jedinstvena baza poslovnih partnera',
+        'Evidencija ugovora i cena po partneru',
+        'Kartica plaćanja - pregled dugovanja',
+        'Početna stanja i usaglašavanja'
+      ]
+    },
+    {
+      naziv: 'Izveštaji i analitika',
+      ikonica: '📊',
+      stavke: [
+        'Finansijski izveštaji po periodima',
+        'Profitabilnost po linijama i vozilima',
+        'Statistika iskorišćenosti voznog parka',
+        'Pregled za poresku upravu'
+      ]
+    }
+  ],
+  
+  prednosti: [
+    {
+      naslov: 'Manje administracije',
+      opis: 'Smanjite vreme provedeno na papirima i fokusirajte se na osnovnu delatnost.'
+    },
+    {
+      naslov: 'Veća efikasnost',
+      opis: 'Bolje iskorišćenje voznog parka i optimizacija ruta.'
+    },
+    {
+      naslov: 'Brža naplata',
+      opis: 'Automatizovano fakturisanje i praćenje potraživanja.'
+    },
+    {
+      naslov: 'Potpuna kontrola',
+      opis: 'Sve informacije o poslovanju na jednom mestu - od troškova do prihoda.'
+    }
+  ],
+  
+  komeJeNamena: [
+    'Firme koje se bave autobuskim prevozom putnika',
+    'Taksi udruženja i rent-a-car kompanije',
+    'Kombi prevoznici i turističke agencije',
+    'Svi koji žele da digitalizuju svoje poslovanje'
+  ],
+  
+  tehnologije: ['PHP/MySQL', 'Web aplikacija', 'SEF integracija', 'Prilagodljivo vašim potrebama']
+};
+---
+
+<Layout title={`${proizvod.naziv} | Art-Info`}>
+  
+  <!-- Hero sekcija -->
+  <div class="hero" style={`background: linear-gradient(135deg, ${proizvod.boja} 0%, #0a1929 100%);`}>
+    <div class="hero-content">
+      <span class="hero-ikonica">{proizvod.ikonica}</span>
+      <h1>{proizvod.naziv}</h1>
+      <p class="hero-opis">{proizvod.naslov}</p>
+      <div class="hero-buttons">
+        <a href="/kontakt" class="btn-primary">Zatražite prezentaciju</a>
+        <a href="#moduli" class="btn-secondary">Istražite mogućnosti</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Kratak opis -->
+  <div class="uvod">
+    <p>{proizvod.opis}</p>
+  </div>
+  
+  <!-- Kome je namenjeno -->
+  <div class="kome-sekcija">
+    <h2>Kome je <span class="accent">namenjeno</span></h2>
+    <div class="kome-grid">
+      {proizvod.komeJeNamena.map(item => (
+        <div class="kome-item">✓ {item}</div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Ključne prednosti -->
+  <div class="prednosti">
+    <h2>Šta <span class="accent">dobijate</span></h2>
+    
+    <div class="prednosti-grid">
+      {proizvod.prednosti.map(prednost => (
+        <div class="prednost-kartica">
+          <h3>{prednost.naslov}</h3>
+          <p>{prednost.opis}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Mogućnosti (grupisane) -->
+  <div id="moduli" class="moduli">
+    <h2>Sve što vam treba <span class="accent">na jednom mestu</span></h2>
+    
+    <div class="moduli-grid">
+      {proizvod.moduli.map(modul => (
+        <div class="modul-kartica">
+          <div class="modul-header">
+            <span class="modul-ikonica">{modul.ikonica}</span>
+            <h3>{modul.naziv}</h3>
+          </div>
+          <ul class="modul-stavke">
+            {modul.stavke.map(stavka => (
+              <li>{stavka}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Tehnologije -->
+  <div class="tehnologije">
+    <h2>Tehnologije <span class="accent">u pozadini</span></h2>
+    
+    <div class="tehnologije-tagovi">
+      {proizvod.tehnologije.map(tech => (
+        <span class="tag">{tech}</span>
+      ))}
+    </div>
+  </div>
+  
+  <!-- CTA i povratak -->
+  <div class="cta" style={`background: linear-gradient(135deg, ${proizvod.boja} 0%, #0a1929 100%);`}>
+    <h2>Spremni za digitalizaciju?</h2>
+    <p>Pokažite nam kako radite - mi ćemo vam pokazati kako možete bolje.</p>
+    <div class="cta-buttons">
+      <a href="/kontakt" class="btn-primary btn-veliko">Zakažite online prezentaciju</a>
+      <a href="/resenja" class="btn-povratak">← Povratak na sva rešenja</a>
+    </div>
+  </div>
+  
+</Layout>
+
+<style>
+  .hero {
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .hero-ikonica {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-opis {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: white;
+    color: var(--primary-dark);
+  }
+  
+  .btn-povratak {
+    display: inline-block;
+    margin-top: 2rem;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .btn-povratak:hover {
+    opacity: 1;
+  }
+  
+  .uvod {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-size: 1.2rem;
+    color: var(--gray-700);
+    padding: 0 1rem;
+  }
+  
+  h2 {
+    text-align: center;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .accent {
+    color: var(--primary-medium);
+    font-weight: 300;
+  }
+  
+  .kome-sekcija {
+    margin-bottom: 4rem;
+  }
+  
+  .kome-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .kome-item {
+    background: var(--gray-100);
+    padding: 0.8rem 1.5rem;
+    border-radius: 40px;
+    color: var(--primary-dark);
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  
+  .prednosti-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  
+  .prednost-kartica {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .prednost-kartica:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .prednost-kartica h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  .prednost-kartica p {
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  
+  .moduli-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .modul-kartica {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-light);
+  }
+  
+  .modul-kartica:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .modul-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .modul-ikonica {
+    font-size: 2rem;
+  }
+  
+  .modul-header h3 {
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .modul-stavke {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .modul-stavke li {
+    color: var(--gray-700);
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed var(--gray-200);
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  
+  .modul-stavke li::before {
+    content: "✓";
+    color: var(--primary-medium);
+    position: absolute;
+    left: 0;
+  }
+  
+  .modul-stavke li:last-child {
+    border-bottom: none;
+  }
+  
+  .tehnologije {
+    margin-bottom: 4rem;
+  }
+  
+  .tehnologije-tagovi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .tag {
+    background: var(--primary-light);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.95rem;
+  }
+  
+  .cta {
+    text-align: center;
+    padding: 4rem 2rem;
+    border-radius: 16px;
+    color: white;
+  }
+  
+  .cta h2 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
+  .cta p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  .btn-veliko {
+    background: white;
+    color: var(--primary-dark);
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+    }
+    
+    .prednosti-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .moduli-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .kome-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .kome-item {
+      width: 100%;
+      text-align: center;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+    
+    .tehnologije-tagovi {
+      gap: 0.5rem;
+    }
+    
+    .tag {
+      font-size: 0.85rem;
+      padding: 0.3rem 1rem;
+    }
+  }
+</style>

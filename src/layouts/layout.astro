@@ -1,0 +1,196 @@
+---
+// src/layouts/layout.astro
+import '../styles/global.css';
+import Meni from '../components/meni.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Art-Info doo - IT konsulting i softverske usluge" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} | Art-Info</title>
+  </head>
+  <body>
+    <Meni />
+    
+    <main>
+      <slot />
+    </main>
+    
+    <footer>
+      <div class="footer-content">
+        <div class="footer-info">
+          <h4>Art-Info doo</h4>
+          <p>Beograd, Srbija</p>
+          <p>PIB: 101880517</p>
+          <p>Matični broj: 06976441</p>
+        </div>
+        <div class="footer-status">
+          <span class="status-indicator"></span>
+          <p>Status: Privremena obustava rada</p>
+          <p class="small">* Radimo na rešavanju statusnih pitanja</p>
+        </div>
+        <div class="footer-copyright">
+          <p>© {new Date().getFullYear()} Art-Info doo. Sva prava zadržana.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Globalni reset i osnovni stilovi */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--gray-800);
+    background: var(--gray-100);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    width: 100%;
+  }
+  
+  /* Footer */
+  footer {
+    background: var(--primary-dark);
+    color: white;
+    padding: 3rem 2rem 1.5rem;
+    margin-top: 4rem;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .footer-info h4 {
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .footer-info p {
+    color: var(--gray-300);
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .footer-status {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-medium);
+  }
+  
+  .status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--warning);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  
+  .footer-status p {
+    color: var(--gray-200);
+    margin: 0.5rem 0;
+  }
+  
+  .footer-status .small {
+    font-size: 0.8rem;
+    color: var(--gray-400);
+    font-style: italic;
+  }
+  
+  .footer-copyright {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--gray-400);
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    main {
+      padding: 0 1rem;
+    }
+  }
+  
+  /* Utility klase */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background: var(--primary-dark);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: var(--primary-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-secondary {
+    background: var(--accent-soft);
+    color: var(--primary-dark);
+    border: 1px solid var(--primary-light);
+  }
+  
+  .btn-secondary:hover {
+    background: var(--accent-light);
+  }
+</style>

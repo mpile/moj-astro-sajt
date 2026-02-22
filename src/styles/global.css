@@ -1,0 +1,33 @@
+/* src/styles/global.css */
+:root {
+  /* Tamno plava - osnovna */
+  --primary-dark: #0a1929;
+  --primary-medium: #1e3a5f;
+  --primary-light: #2b4c7c;
+  
+  /* Sive nijanse */
+  --gray-100: #f5f7fa;
+  --gray-200: #e4e7eb;
+  --gray-300: #cbd5e0;
+  --gray-400: #a0aec0;
+  --gray-500: #718096;
+  --gray-600: #4a5568;
+  --gray-700: #2d3748;
+  --gray-800: #1a202c;
+  
+  /* Žuta/krem varijanta - suptilna, kao nada */
+  --accent-soft: #fff8e7;
+  --accent-light: #ffedc9;
+  --accent-medium: #f5d6a8;
+  --accent-warm: #e8c39e;
+  
+  /* Status boje */
+  --warning: #b76e3c;
+  --success: #2e7d5e;
+  --info: #2b4c7c;
+  
+  /* Senke */
+  --shadow-sm: 0 2px 4px rgba(10,25,41,0.05);
+  --shadow-md: 0 4px 8px rgba(10,25,41,0.1);
+  --shadow-lg: 0 8px 16px rgba(10,25,41,0.15);
+}

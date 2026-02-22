@@ -1,0 +1,319 @@
+---
+// src/pages/blog/[slug].astro
+import Layout from '../../layouts/layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { data, body } = post;
+const { 
+  title, 
+  date, 
+  author, 
+  authorBio, 
+  excerpt, 
+  category, 
+  tags, 
+  readingTime,
+  image,
+  imageAlt 
+} = data;
+---
+
+<Layout title={`${title} | Blog`} description={excerpt}>
+  
+  <article class="blog-post">
+    
+    {image && (
+      <div class="post-image">
+        <img src={image} alt={imageAlt || title} />
+      </div>
+    )}
+    
+    <div class="post-header">
+      <h1>{title}</h1>
+      
+      <div class="post-meta">
+        <span class="post-date">
+          📅 {new Date(date).toLocaleDateString('sr-RS', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </span>
+        <span class="post-author">👤 {author}</span>
+        <span class="post-read-time">⏱️ {readingTime} min čitanja</span>
+        <span class="post-category">🏷️ {category}</span>
+      </div>
+      
+      {authorBio && (
+        <div class="author-bio">
+          <p><em>{authorBio}</em></p>
+        </div>
+      )}
+    </div>
+    
+    <div class="post-content">
+      {/* Prikaz markdown sadržaja */}
+      <div class="markdown-content">
+        {body ? body.split('\n').map((paragraph, i) => (
+          paragraph.trim() ? <p key={i}>{paragraph}</p> : null
+        )) : <p>Sadržaj nije dostupan.</p>}
+      </div>
+    </div>
+    
+    {tags && tags.length > 0 && (
+      <div class="post-tags">
+        <h3>Tagovi:</h3>
+        <div class="tags-list">
+          {tags.map(tag => (
+            <span class="tag">#{tag}</span>
+          ))}
+        </div>
+      </div>
+    )}
+    
+    <div class="post-share">
+      <h3>Podelite ovaj članak:</h3>
+      <div class="share-links">
+        <a 
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${Astro.url.href}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="share-link linkedin"
+        >
+          LinkedIn
+        </a>
+        <a 
+          href={`https://twitter.com/intent/tweet?url=${Astro.url.href}&text=${encodeURIComponent(title)}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="share-link twitter"
+        >
+          Twitter
+        </a>
+        <a 
+          href={`mailto:?subject=${encodeURIComponent(title)}&body=Pročitajte ovaj članak: ${encodeURIComponent(Astro.url.href)}`}
+          class="share-link email"
+        >
+          Email
+        </a>
+      </div>
+    </div>
+    
+    <div class="post-nav">
+      <a href="/blog" class="back-to-blog">← Nazad na blog</a>
+    </div>
+    
+  </article>
+  
+</Layout>
+
+<style>
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .post-image {
+    margin: -2rem -2rem 2rem -2rem;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    max-height: 400px;
+  }
+  
+  .post-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gray-200);
+  }
+  
+  .post-header h1 {
+    color: var(--primary-dark);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .post-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  
+  .post-meta span {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .post-category {
+    background: var(--primary-light);
+    color: white;
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
+  }
+  
+  .author-bio {
+    background: var(--gray-100);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    color: var(--gray-700);
+    font-style: italic;
+  }
+  
+  .post-content {
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+  }
+  
+  .markdown-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-tags {
+    margin: 2rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  
+  .post-tags h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .tag {
+    background: var(--gray-200);
+    color: var(--gray-700);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  
+  .tag:hover {
+    background: var(--primary-light);
+    color: white;
+  }
+  
+  .post-share {
+    margin: 2rem 0;
+    text-align: center;
+  }
+  
+  .post-share h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .share-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .share-link {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .share-link.linkedin {
+    background: #0077b5;
+  }
+  
+  .share-link.twitter {
+    background: #1da1f2;
+  }
+  
+  .share-link.email {
+    background: var(--primary-dark);
+  }
+  
+  .share-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    filter: brightness(1.1);
+  }
+  
+  .post-nav {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .back-to-blog {
+    display: inline-block;
+    color: var(--primary-medium);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .back-to-blog:hover {
+    color: var(--primary-dark);
+    transform: translateX(-5px);
+  }
+  
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 1.5rem;
+    }
+    
+    .post-image {
+      margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    }
+    
+    .post-header h1 {
+      font-size: 2rem;
+    }
+    
+    .post-meta {
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .share-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .share-link {
+      text-align: center;
+    }
+  }
+</style>
