@@ -102,23 +102,38 @@ def push_na_github(token):
     
     # Prvo proveri remote
     result = izvrsi_komandu("git remote -v")
-    if "moj-astro-sajt" not in result["stdout"]:
-        print_greska("Nije postavljena remote adresa!")
-        print_info("Pokrenite: git remote add origin https://github.com/mpile/moj-astro-sajt.git")
-        return False
     
-    # Push sa tokenom
-    komanda = f'git push https://{REPO_OWNER}:{token}@github.com/{REPO_OWNER}/{REPO_NAME}.git main'
-    result = izvrsi_komandu(komanda)
+    # Kreiraj URL sa tokenom
+    token_url = f"https://{REPO_OWNER}:{token}@github.com/{REPO_OWNER}/{REPO_NAME}.git"
+    
+    # Proveri da li remote postoji, ako ne postoji dodaj ga
+    if "moj-astro-sajt" not in result["stdout"]:
+        print_info("Dodajem remote adresu...")
+        izvrsi_komandu(f"git remote add origin {token_url}")
+    else:
+        # Ako postoji, ažuriraj ga sa tokenom
+        print_info("Ažuriram remote adresu sa tokenom...")
+        izvrsi_komandu(f"git remote set-url origin {token_url}")
+    
+    # Push
+    print_info("Šaljem na GitHub...")
+    result = izvrsi_komandu("git push -u origin main")
     
     if result["uspeh"]:
-        print_uspeh("Kod uspešno poslat na GitHub!")
-        print_info(f"https://github.com/{REPO_OWNER}/{REPO_NAME}")
+        print_uspeh("✅ Kod uspešno poslat na GitHub!")
+        print_info(f"📌 https://github.com/{REPO_OWNER}/{REPO_NAME}")
+        
+        # Vrati remote na original (bez tokena) iz sigurnosnih razloga
+        clean_url = f"https://github.com/{REPO_OWNER}/{REPO_NAME}.git"
+        izvrsi_komandu(f"git remote set-url origin {clean_url}")
+        print_info("🔒 Remote vraćen na verziju bez tokena")
+        
         return True
     else:
-        print_greska(f"Push nije uspeo: {result['stderr']}")
+        print_greska(f"❌ Push nije uspeo: {result['stderr']}")
+        print_info("💡 Proverite da li je token ispravan i ima 'repo' dozvole")
         return False
-
+        
 def pull_sa_github():
     """Povlači izmene sa GitHub-a"""
     print_header("📥 PULL SA GITHUB-A")
