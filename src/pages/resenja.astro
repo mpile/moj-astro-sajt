@@ -5,7 +5,8 @@ import Layout from '../layouts/layout.astro';
 const resenja = [
   {
     id: 'prevoz',
-    naziv: 'SaaS za prevoz putnika',
+    naziv: 'PrevozPutnika',           // ← PROMENJENO
+    podnaslov: 'Softver za upravljanje prevozom putnika',  
     namena: 'Za firme koje se bave prevozom putnika',
     problemi: [
       'Praćenje voznog parka',
@@ -13,13 +14,14 @@ const resenja = [
       'Fakturisanje putnika',
       'Izveštaji za knjigovodstvo'
     ],
-    boja: '#1e3a5f', // tamno plava
+    boja: '#1e3a5f',
     ikonica: '🚐',
     slug: '/resenja/prevoz'
   },
   {
-    id: 'auto-skola',
-    naziv: 'SaaS za auto-škole',
+    id: 'askola',
+    naziv: 'Askola CG',                // ← PROMENJENO
+    podnaslov: 'Digitalizacija auto-škola u Crnoj Gori',  
     namena: 'Za auto-škole u Crnoj Gori',
     problemi: [
       'Administracija kandidata (upis, dokumenta, evidencija)',
@@ -27,9 +29,9 @@ const resenja = [
       'Praćenje prisustva i napretka polaznika',
       'Evidencija prijava za ispit (administrativna podrška)'
     ],
-    boja: '#b76e3c', // topla nijansa
+    boja: '#b76e3c',
     ikonica: '🚗',
-    slug: '/resenja/auto-skole'
+    slug: '/resenja/askola'            // ← PROMENJENO (slug)
   }
 ];
 ---
@@ -41,13 +43,16 @@ const resenja = [
     <p class="subtitle">Softver koji rešava stvarne probleme vaše branše</p>
   </div>
   
-  <!-- Dva rešenja - lepo uporedo -->
+  <!-- Dva rešenja -->
   <div class="resenja-grid">
     {resenja.map(resenje => (
       <div class="resenje-card" style={`border-top-color: ${resenje.boja}`}>
         <div class="card-header">
           <span class="ikonica">{resenje.ikonica}</span>
-          <h2>{resenje.naziv}</h2>
+          <div>
+            <h2>{resenje.naziv}</h2>
+            <p class="podnaslov">{resenje.podnaslov}</p>  // ← DODATO
+          </div>
         </div>
         
         <p class="namena">{resenje.namena}</p>
@@ -80,6 +85,14 @@ const resenja = [
 </Layout>
 
 <style>
+  /* Dodaj stil za podnaslov */
+  .podnaslov {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Ostali stilovi ostaju isti */
   .resenja-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -126,7 +139,7 @@ const resenja = [
   
   .card-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 1rem;
     margin-bottom: 1rem;
   }

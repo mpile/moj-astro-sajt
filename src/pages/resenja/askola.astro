@@ -1,13 +1,13 @@
 ---
-// src/pages/resenja/auto-skole.astro
+// src/pages/resenja/askola.astro
 import Layout from '../../layouts/layout.astro';
 
-// Konfiguracija za auto-škole - Odoo/Python/PostgreSQL
+// Konfiguracija za Askola CG
 const proizvod = {
-  naziv: 'SaaS za auto-škole',
+  naziv: 'Askola CG',
   ikonica: '🚗',
-  boja: '#b76e3c', // topla narandžasta
-  naslov: 'Kompletno Odoo rešenje za auto-škole',
+  boja: '#b76e3c',
+  naslov: 'Digitalizacija auto-škola u Crnoj Gori',
   opis: 'Sve na jednom mestu - od upisa kandidata do svedočanstava i evidencije naplate. Razvijeno u Odoo (Python/PostgreSQL).',
   
   // Grupisano prema funkcionalnostima
@@ -210,7 +210,7 @@ const proizvod = {
   
   <!-- Prednosti -->
   <div class="prednosti">
-    <h2>Zašto baš <span class="accent">ovo rešenje</span></h2>
+    <h2>Zašto baš <span class="accent">Askola CG</span></h2>
     
     <ul class="prednosti-lista">
       {proizvod.prednosti.map(p => (
@@ -233,7 +233,7 @@ const proizvod = {
   <!-- CTA i povratak -->
   <div class="cta" style={`background: linear-gradient(135deg, ${proizvod.boja} 0%, #9a5a31 100%);`}>
     <h2>Modernizujte vašu auto-školu</h2>
-    <p>Prikažemo vam kako Odoo rešenje radi i prilagodimo ga vašim potrebama.</p>
+    <p>Prikažemo vam kako Askola CG radi i prilagodimo ga vašim potrebama.</p>
     <div class="cta-buttons">
       <a href="/kontakt" class="btn-primary btn-veliko">Zakažite online prezentaciju</a>
       <a href="/resenja" class="btn-povratak">← Povratak na sva rešenja</a>
@@ -243,6 +243,7 @@ const proizvod = {
 </Layout>
 
 <style>
+  /* Isti CSS kao ranije */
   .hero {
     color: white;
     padding: 4rem 2rem;

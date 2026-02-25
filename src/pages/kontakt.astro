@@ -2,87 +2,11 @@
 // src/pages/kontakt.astro
 import Layout from '../layouts/layout.astro';
 
-// Debug konfiguracija - možeš menjati
-const DEBUG = false;           // Prikazuje dodatne info na strani
-const DEBUG_SHOW_RAW = false;  // Prikazuje sirove podatke u konzoli
-
-
-let porukaPoslata = false;
-let greska = '';
-let debugInfo: any = {};
-
-if (Astro.request.method === 'POST') {
-  console.log('🔍 [DEBUG] POST zahtev primljen');
-  
-  try {
-    // Čitamo telo zahteva
-    const bodyText = await Astro.request.text();
-    
-    if (DEBUG_SHOW_RAW) {
-      console.log('📦 RAW body:', bodyText);
-    }
-    
-    if (!bodyText) {
-      console.log('❌ Telo prazno');
-      greska = 'Forma je poslata bez podataka.';
-    } else {
-      // Parsiranje podataka
-      const params = new URLSearchParams(bodyText);
-      
-      const ime = params.get('ime') || '';
-      const email = params.get('email') || '';
-      const telefon = params.get('telefon') || '';
-      const poruka = params.get('poruka') || '';
-      const nacinKontakta = params.get('nacinKontakta') || 'bilo koji';
-      const pristanak = params.get('pristanak') || '';
-      
-      debugInfo = { ime, email, telefon, poruka, nacinKontakta, pristanak };
-      
-      console.log('📋 Parsirani podaci:', debugInfo);
-      
-      // Validacija
-      if (!ime) {
-        greska = 'Ime je obavezno polje!';
-      } else if (!email) {
-        greska = 'Email je obavezno polje!';
-      } else if (!email.includes('@')) {
-        greska = 'Email nije ispravan!';
-      } else if (!poruka) {
-        greska = 'Poruka je obavezna!';
-      } else if (poruka.length < 5) {
-        greska = 'Poruka mora imati najmanje 5 karaktera!';
-      } else if (!pristanak) {
-        greska = 'Morate prihvatiti čuvanje podataka!';
-      } else {
-        console.log('✅ Validacija uspešna!', debugInfo);
-        porukaPoslata = true;
-        // Ovde će ići slanje email-a kasnije
-      }
-    }
-  } catch (error) {
-    console.error('🔥 Greška:', error);
-    greska = 'Došlo je do greške pri obradi forme.';
-  }
-}
+// Formspree endpoint - ZAMENI SA TVOJIM!
+const formEndpoint = "https://formspree.io/f/xeelvdne";
 ---
 
 <Layout title="Kontakt">
-  
-  <!-- Debug info (samo ako je uključeno) -->
-  {DEBUG && (
-    <div style="background: #f0f0f0; padding: 1rem; margin-bottom: 2rem; border: 1px dashed #999; border-radius: 8px;">
-      <h3 style="margin-top: 0;">🔧 Debug info</h3>
-      <p><strong>DEBUG:</strong> {DEBUG ? 'ON' : 'OFF'}</p>
-      <p><strong>Metod:</strong> {Astro.request.method}</p>
-      {Object.keys(debugInfo).length > 0 && (
-        <pre style="background: #fff; padding: 0.5rem; border-radius: 4px;">
-          {JSON.stringify(debugInfo, null, 2)}
-        </pre>
-      )}
-      <p><small>Ovo je vidljivo samo kad je DEBUG = true</small></p>
-    </div>
-  )}
-  
   <div class="kontakt-header">
     <h1>Kontaktirajte <span class="accent">nas</span></h1>
     <p class="subtitle">Pošaljite poruku i javićemo vam se u najkraćem roku</p>
@@ -106,6 +30,7 @@ if (Astro.request.method === 'POST') {
         <p>Pljevaljska 24<br />11050 Beograd</p>
       </div>
       
+      <!-- Google Mapa -->
       <div class="info-card map-card">
         <h3>🗺️ Kako do nas</h3>
         <div class="map-container">
@@ -133,111 +58,76 @@ if (Astro.request.method === 'POST') {
     </div>
     
     <div class="form-section">
-      {porukaPoslata && (
-        <div class="success-wrapper">
-          <div class="success-message">
-            <div class="success-icon">✅</div>
-            <div>
-              <h3>Poruka je poslata!</h3>
-              <p>Hvala što ste nas kontaktirali. Javićemo vam se u najkraćem mogućem roku.</p>
-            </div>
-          </div>
-          
-          <div class="povratak-wrapper">
-            <a href="/" class="povratak-dugme">← Povratak na početnu</a>
-            <span class="ili">ili</span>
-            <a href="/kontakt" class="povratak-dugme">Pošalji novu poruku</a>
-          </div>
-        </div>
-      )}
-      
-      {greska && (
-        <div class="error-message">
-          <div class="error-icon">⚠️</div>
-          <div>
-            <h3>Greška</h3>
-            <p>{greska}</p>
-          </div>
-        </div>
-      )}
-      
-      {!porukaPoslata && !greska && (
-        <form method="POST" class="kontakt-forma" enctype="application/x-www-form-urlencoded">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="ime">Ime i prezime *</label>
-              <input 
-                type="text" 
-                id="ime" 
-                name="ime" 
-                required 
-                placeholder="Vaše ime"
-                value={debugInfo.ime || ''}
-              />
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                placeholder="vas@email.com"
-                value={debugInfo.email || ''}
-              />
-            </div>
-          </div>
-          
+      <form action={formEndpoint} method="POST" class="kontakt-forma">
+        <div class="form-row">
           <div class="form-group">
-            <label for="telefon">Telefon (opciono)</label>
+            <label for="ime">Ime i prezime *</label>
             <input 
-              type="tel" 
-              id="telefon" 
-              name="telefon" 
-              placeholder="060 123 456"
-              value={debugInfo.telefon || ''}
+              type="text" 
+              id="ime" 
+              name="ime" 
+              required 
+              placeholder="Vaše ime"
             />
           </div>
           
           <div class="form-group">
-            <label for="nacinKontakta">Željeni način kontakta</label>
-            <select id="nacinKontakta" name="nacinKontakta">
-              <option value="bilo koji" selected={debugInfo.nacinKontakta === 'bilo koji'}>Bilo koji</option>
-              <option value="email" selected={debugInfo.nacinKontakta === 'email'}>Email</option>
-              <option value="telefon" selected={debugInfo.nacinKontakta === 'telefon'}>Telefon</option>
-            </select>
-          </div>
-          
-          <div class="form-group">
-            <label for="poruka">Poruka *</label>
-            <textarea 
-              id="poruka" 
-              name="poruka" 
-              rows="5" 
-              required 
-              placeholder="Vaša poruka..."
-            >{debugInfo.poruka || ''}</textarea>
-            <small class="char-counter">Minimalno 5 karaktera</small>
-          </div>
-          
-          <div class="form-group checkbox">
+            <label for="email">Email *</label>
             <input 
-              type="checkbox" 
-              id="pristanak" 
-              name="pristanak" 
+              type="email" 
+              id="email" 
+              name="email" 
               required 
-              checked={debugInfo.pristanak === 'on'}
+              placeholder="vas@email.com"
             />
-            <label for="pristanak">Slažem se sa čuvanjem podataka radi odgovora na upit *</label>
           </div>
-          
-          <button type="submit" class="btn-submit">
-            <span>Pošalji poruku</span>
-            <span class="btn-icon">→</span>
-          </button>
-        </form>
-      )}
+        </div>
+        
+        <div class="form-group">
+          <label for="telefon">Telefon (opciono)</label>
+          <input 
+            type="tel" 
+            id="telefon" 
+            name="telefon" 
+            placeholder="060 123 456"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="nacinKontakta">Željeni način kontakta</label>
+          <select id="nacinKontakta" name="nacinKontakta">
+            <option value="bilo koji">Bilo koji</option>
+            <option value="email">Email</option>
+            <option value="telefon">Telefon</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="poruka">Poruka *</label>
+          <textarea 
+            id="poruka" 
+            name="poruka" 
+            rows="5" 
+            required 
+            placeholder="Vaša poruka..."
+          ></textarea>
+        </div>
+        
+        <div class="form-group checkbox">
+          <input 
+            type="checkbox" 
+            id="pristanak" 
+            name="pristanak" 
+            required 
+          />
+          <label for="pristanak">Slažem se sa čuvanjem podataka radi odgovora na upit *</label>
+        </div>
+        
+        <button type="submit" class="btn-submit">
+          <span>Pošalji poruku</span>
+          <span class="btn-icon">→</span>
+        </button>
+      </form>
     </div>
   </div>
 </Layout>
@@ -353,12 +243,6 @@ if (Astro.request.method === 'POST') {
     box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
   }
   
-  .char-counter {
-    font-size: 0.85rem;
-    color: var(--gray-500);
-    margin-top: 0.25rem;
-  }
-  
   .checkbox {
     flex-direction: row;
     align-items: center;
@@ -399,39 +283,6 @@ if (Astro.request.method === 'POST') {
     transform: translateX(5px);
   }
   
-  .success-message, .error-message {
-    display: flex;
-    gap: 1rem;
-    padding: 1.5rem;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
-    animation: slideIn 0.3s ease;
-  }
-  
-  .success-message {
-    background: linear-gradient(135deg, #2e7d5e 0%, #1e5f45 100%);
-    color: white;
-  }
-  
-  .error-message {
-    background: linear-gradient(135deg, #b76e3c 0%, #9a5a31 100%);
-    color: white;
-  }
-  
-  .success-icon, .error-icon {
-    font-size: 2rem;
-  }
-  
-  .success-message h3, .error-message h3 {
-    margin-bottom: 0.25rem;
-    font-size: 1.2rem;
-  }
-  
-  .success-message p, .error-message p {
-    margin: 0;
-    opacity: 0.9;
-  }
-  
   .map-card {
     padding: 1rem;
   }
@@ -460,52 +311,6 @@ if (Astro.request.method === 'POST') {
     text-decoration: underline;
   }
   
-  .success-wrapper {
-    text-align: center;
-  }
-  
-  .povratak-wrapper {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  
-  .povratak-dugme {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: var(--primary-dark);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-  
-  .povratak-dugme:hover {
-    background: var(--primary-medium);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-  
-  .ili {
-    color: var(--gray-500);
-    font-size: 0.9rem;
-  }
-  
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
   @media (max-width: 768px) {
     .kontakt-header h1 {
       font-size: 2rem;
@@ -521,27 +326,6 @@ if (Astro.request.method === 'POST') {
     
     .map-container iframe {
       height: 200px;
-    }
-    
-    .success-message, .error-message {
-      flex-direction: column;
-      text-align: center;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .povratak-wrapper {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .povratak-dugme {
-      width: 100%;
-      text-align: center;
-    }
-    
-    .ili {
-      margin: 0.25rem 0;
     }
   }
 </style>

@@ -1,0 +1,410 @@
+---
+// src/pages/prodaja.astro
+import Layout from '../layouts/layout.astro';
+
+const proizvodi = [
+  {
+    naziv: "PrevozPutnika",
+    ikonica: "🚐",
+    boja: "#1e3a5f",
+    opis: "Kompletno rešenje za upravljanje prevozom putnika - planiranje, putni nalozi, e-fakture, troškovi.",
+    cene: [
+      {
+        tip: "Mesečna pretplata",
+        cena: "4.500 RSD/mesečno",
+        pogodnosti: [
+          "Sve funkcionalnosti softvera",
+          "Redovna ažuriranja",
+          "Email podrška",
+          "Backup podataka"
+        ]
+      },
+      {
+        tip: "Godišnja pretplata",
+        cena: "45.000 RSD/godišnje",
+        pogodnosti: [
+          "Sve iz mesečne pretplate",
+          "Dva meseca gratis (ušteda 9.000 RSD)",
+          "Prioritetna podrška",
+          "Online obuka (2h)"
+        ]
+      }
+    ]
+  },
+  {
+    naziv: "Askola CG",
+    ikonica: "🚗",
+    boja: "#b76e3c",
+    opis: "Softver za auto-škole u Crnoj Gori - upis kandidata, prijave ispita, evidencija, svedočanstva.",
+    cene: [
+      {
+        tip: "Mesečna pretplata",
+        cena: "2.900 RSD/mesečno",
+        pogodnosti: [
+          "Sve funkcionalnosti softvera",
+          "Redovna ažuriranja",
+          "Email podrška",
+          "Backup podataka"
+        ]
+      },
+      {
+        tip: "Godišnja pretplata",
+        cena: "29.000 RSD/godišnje",
+        pogodnosti: [
+          "Sve iz mesečne pretplate",
+          "Dva meseca gratis (ušteda 5.800 RSD)",
+          "Prioritetna podrška",
+          "Online obuka (2h)"
+        ]
+      }
+    ]
+  }
+];
+
+const cestaPitanja = [
+  {
+    pitanje: "Kako funkcioniše probni period?",
+    odgovor: "Omogućavamo besplatan probni period od 30 dana bez obaveze kupovine. Dobićete pristup svim funkcionalnostima, a na kraju perioda možete odlučiti da li želite da nastavite sa pretplatom."
+  },
+  {
+    pitanje: "Da li mogu da promenim paket?",
+    odgovor: "Da, možete nadograditi ili smanjiti paket u bilo kom trenutku. Promena stupa na snagu od narednog obračunskog perioda."
+  },
+  {
+    pitanje: "Kako se vrši naplata?",
+    odgovor: "Naplata se vrši automatski svakog meseca (ili godine) na osnovu podataka o plaćanju koje ste uneli. Fakture se generišu automatski i šalju na vaš email. Podržavamo sve kartice, kao i plaćanje preko računa za pravna lica."
+  },
+  {
+    pitanje: "Zašto je Askola CG jeftinija?",
+    odgovor: "Askola CG ima manji obim funkcionalnosti i specifična je za tržište Crne Gore, što omogućava nižu cenu. Takođe, cilj nam je da auto-školama olakšamo početak digitalizacije uz pristupačnu cenu."
+  }
+];
+---
+
+<Layout title="Prodaja | Art-Info" description="Cene naših SaaS rešenja">
+  
+  <div class="stranica-header">
+    <h1>Modeli <span class="accent">prodaje</span></h1>
+    <p class="subtitle">Izaberite paket koji najbolje odgovara vašim potrebama</p>
+  </div>
+  
+  <!-- SaaS objašnjenje -->
+  <div class="saas-info">
+    <div class="info-kartica">
+      <span class="info-ikonica">☁️</span>
+      <h2>Šta je SaaS?</h2>
+      <p>Naša rešenja se nude po modelu <strong>SaaS (Software as a Service)</strong> – softver kao usluga. To znači da ne kupujete softver jednom za svagda, već plaćate mesečnu ili godišnju pretplatu za korišćenje.</p>
+      <p class="napomena">✅ Bez troškova implementacije • ✅ Redovna ažuriranja • ✅ Podrška uključena</p>
+    </div>
+  </div>
+  
+  <!-- Proizvodi i cene -->
+  {proizvodi.map(proizvod => (
+    <div class="proizvod-sekcija">
+      <div class="proizvod-header" style={`border-left-color: ${proizvod.boja}`}>
+        <span class="proizvod-ikonica">{proizvod.ikonica}</span>
+        <h2>{proizvod.naziv}</h2>
+        <p class="proizvod-opis">{proizvod.opis}</p>
+      </div>
+      
+      <div class="cene-grid">
+        {proizvod.cene.map(cena => (
+          <div class="cena-kartica" style={`border-top-color: ${proizvod.boja}`}>
+            <h3>{cena.tip}</h3>
+            <p class="cena">{cena.cena}</p>
+            <ul>
+              {cena.pogodnosti.map(pogodnost => (
+                <li>✓ {pogodnost}</li>
+              ))}
+            </ul>
+            <a href="/kontakt" class="btn-primary" style={`background: ${proizvod.boja}`}>Zatražite ponudu</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+  
+  <!-- Česta pitanja -->
+  <div class="faq-sekcija">
+    <h2>Česta <span class="accent">pitanja</span></h2>
+    
+    <div class="faq-lista">
+      {cestaPitanja.map(faq => (
+        <div class="faq-stavka">
+          <h3>❓ {faq.pitanje}</h3>
+          <p>{faq.odgovor}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- CTA -->
+  <div class="cta-sekcija">
+    <h2>Niste sigurni koji paket da izaberete?</h2>
+    <p>Kontaktirajte nas za besplatne konsultacije – pomoći ćemo vam da odaberete pravo rešenje.</p>
+    <a href="/kontakt" class="btn-primary btn-veliko">Zakažite razgovor</a>
+  </div>
+  
+</Layout>
+
+<style>
+  .stranica-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .stranica-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .accent {
+    color: var(--primary-medium);
+    font-weight: 300;
+  }
+  
+  .subtitle {
+    color: var(--gray-600);
+    font-size: 1.2rem;
+  }
+  
+  /* SaaS info */
+  .saas-info {
+    margin-bottom: 4rem;
+  }
+  
+  .info-kartica {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+    color: white;
+    padding: 3rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .info-ikonica {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .info-kartica h2 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  
+  .info-kartica p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+    opacity: 0.95;
+    line-height: 1.6;
+  }
+  
+  .info-kartica .napomena {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-top: 1rem;
+  }
+  
+  /* Proizvodi */
+  .proizvod-sekcija {
+    margin-bottom: 4rem;
+  }
+  
+  .proizvod-header {
+    border-left: 6px solid;
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .proizvod-ikonica {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .proizvod-header h2 {
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .proizvod-opis {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+  }
+  
+  .cene-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  .cena-kartica {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border-top: 6px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .cena-kartica:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .cena-kartica h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .cena {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cena-kartica ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    flex: 1;
+  }
+  
+  .cena-kartica li {
+    color: var(--gray-700);
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  
+  .cena-kartica li:last-child {
+    border-bottom: none;
+  }
+  
+  .btn-primary {
+    display: block;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* FAQ */
+  .faq-sekcija {
+    margin-bottom: 4rem;
+  }
+  
+  .faq-sekcija h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .faq-lista {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-stavka {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+  }
+  
+  .faq-stavka:hover {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .faq-stavka h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .faq-stavka p {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+  
+  /* CTA */
+  .cta-sekcija {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--gray-100) 0%, white 100%);
+    border-radius: 16px;
+  }
+  
+  .cta-sekcija h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .cta-sekcija p {
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+  
+  .btn-veliko {
+    background: var(--primary-dark);
+    color: white;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-veliko:hover {
+    background: var(--primary-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  @media (max-width: 768px) {
+    .stranica-header h1 {
+      font-size: 2rem;
+    }
+    
+    .info-kartica {
+      padding: 2rem;
+    }
+    
+    .info-kartica h2 {
+      font-size: 1.5rem;
+    }
+    
+    .info-kartica p {
+      font-size: 1rem;
+    }
+    
+    .proizvod-header h2 {
+      font-size: 1.8rem;
+    }
+    
+    .cene-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

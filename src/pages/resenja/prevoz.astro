@@ -2,15 +2,14 @@
 // src/pages/resenja/prevoz.astro
 import Layout from '../../layouts/layout.astro';
 
-// Konfiguracija za prevoz
+// Konfiguracija za PrevozPutnika
 const proizvod = {
-  naziv: 'SaaS za prevoz putnika',
+  naziv: 'PrevozPutnika',
   ikonica: '🚐',
   boja: '#1e3a5f',
-  naslov: 'Kompletno rešenje za vašu prevozničku firmu',
+  naslov: 'Softver za upravljanje prevozom putnika',
   opis: 'Sve na jednom mestu - od planiranja do fakturisanja i e-faktura. Povećajte efikasnost i smanjite administrativne troškove.',
   
-  // Grupisano prema poslovnim procesima
   moduli: [
     {
       naziv: 'Planiranje i raspored',
@@ -71,26 +70,6 @@ const proizvod = {
         'Praćenje radnih sati i prekovremenog rada',
         'Mesečni pregled angažovanja po vozačima'
       ]
-    },
-    {
-      naziv: 'Partneri i klijenti',
-      ikonica: '🤝',
-      stavke: [
-        'Jedinstvena baza poslovnih partnera',
-        'Evidencija ugovora i cena po partneru',
-        'Kartica plaćanja - pregled dugovanja',
-        'Početna stanja i usaglašavanja'
-      ]
-    },
-    {
-      naziv: 'Izveštaji i analitika',
-      ikonica: '📊',
-      stavke: [
-        'Finansijski izveštaji po periodima',
-        'Profitabilnost po linijama i vozilima',
-        'Statistika iskorišćenosti voznog parka',
-        'Pregled za poresku upravu'
-      ]
     }
   ],
   
@@ -113,13 +92,6 @@ const proizvod = {
     }
   ],
   
-  komeJeNamena: [
-    'Firme koje se bave autobuskim prevozom putnika',
-    'Taksi udruženja i rent-a-car kompanije',
-    'Kombi prevoznici i turističke agencije',
-    'Svi koji žele da digitalizuju svoje poslovanje'
-  ],
-  
   tehnologije: ['PHP/MySQL', 'Web aplikacija', 'SEF integracija', 'Prilagodljivo vašim potrebama']
 };
 ---
@@ -134,7 +106,7 @@ const proizvod = {
       <p class="hero-opis">{proizvod.naslov}</p>
       <div class="hero-buttons">
         <a href="/kontakt" class="btn-primary">Zatražite prezentaciju</a>
-        <a href="#moduli" class="btn-secondary">Istražite mogućnosti</a>
+        <a href="#moduli" class="btn-secondary">Istražite module</a>
       </div>
     </div>
   </div>
@@ -142,16 +114,6 @@ const proizvod = {
   <!-- Kratak opis -->
   <div class="uvod">
     <p>{proizvod.opis}</p>
-  </div>
-  
-  <!-- Kome je namenjeno -->
-  <div class="kome-sekcija">
-    <h2>Kome je <span class="accent">namenjeno</span></h2>
-    <div class="kome-grid">
-      {proizvod.komeJeNamena.map(item => (
-        <div class="kome-item">✓ {item}</div>
-      ))}
-    </div>
   </div>
   
   <!-- Ključne prednosti -->
@@ -168,7 +130,7 @@ const proizvod = {
     </div>
   </div>
   
-  <!-- Mogućnosti (grupisane) -->
+  <!-- Moduli (funkcionalnosti) -->
   <div id="moduli" class="moduli">
     <h2>Sve što vam treba <span class="accent">na jednom mestu</span></h2>
     
@@ -213,6 +175,7 @@ const proizvod = {
 </Layout>
 
 <style>
+  /* HERO SEKCIJA */
   .hero {
     color: white;
     padding: 4rem 2rem;
@@ -291,6 +254,7 @@ const proizvod = {
     opacity: 1;
   }
   
+  /* UVOD */
   .uvod {
     text-align: center;
     max-width: 800px;
@@ -300,6 +264,7 @@ const proizvod = {
     padding: 0 1rem;
   }
   
+  /* OPŠTI NASLOVI */
   h2 {
     text-align: center;
     color: var(--primary-dark);
@@ -312,33 +277,15 @@ const proizvod = {
     font-weight: 300;
   }
   
-  .kome-sekcija {
+  /* PREDNOSTI */
+  .prednosti {
     margin-bottom: 4rem;
-  }
-  
-  .kome-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .kome-item {
-    background: var(--gray-100);
-    padding: 0.8rem 1.5rem;
-    border-radius: 40px;
-    color: var(--primary-dark);
-    font-weight: 500;
-    font-size: 1rem;
   }
   
   .prednosti-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 4rem;
   }
   
   .prednost-kartica {
@@ -366,11 +313,15 @@ const proizvod = {
     line-height: 1.5;
   }
   
+  /* MODULI */
+  .moduli {
+    margin-bottom: 4rem;
+  }
+  
   .moduli-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-bottom: 4rem;
   }
   
   .modul-kartica {
@@ -430,6 +381,7 @@ const proizvod = {
     border-bottom: none;
   }
   
+  /* TEHNOLOGIJE */
   .tehnologije {
     margin-bottom: 4rem;
   }
@@ -451,6 +403,7 @@ const proizvod = {
     font-size: 0.95rem;
   }
   
+  /* CTA */
   .cta {
     text-align: center;
     padding: 4rem 2rem;
@@ -483,6 +436,7 @@ const proizvod = {
     gap: 1rem;
   }
   
+  /* RESPONSIVE */
   @media (max-width: 768px) {
     .hero h1 {
       font-size: 2rem;
@@ -498,16 +452,6 @@ const proizvod = {
     
     .moduli-grid {
       grid-template-columns: 1fr;
-    }
-    
-    .kome-grid {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .kome-item {
-      width: 100%;
-      text-align: center;
     }
     
     h2 {

@@ -1,0 +1,151 @@
+---
+// src/pages/pravno.astro
+import Layout from '../layouts/layout.astro';
+
+const dokumenti = [
+  {
+    naziv: "Opšti uslovi poslovanja",
+    ikonica: "📄",
+    opis: "Opšti uslovi korišćenja naših softverskih rešenja i usluga.",
+    link: "#",
+    datum: "Poslednja izmena: 25. februar 2026."
+  },
+  {
+    naziv: "Politika privatnosti",
+    ikonica: "🔒",
+    opis: "Kako prikupljamo, čuvamo i koristimo vaše podatke.",
+    link: "#",
+    datum: "Poslednja izmena: 25. februar 2026."
+  },
+  {
+    naziv: "Politika kolačića",
+    ikonica: "🍪",
+    opis: "Informacije o korišćenju kolačića na našem sajtu.",
+    link: "#",
+    datum: "Poslednja izmena: 25. februar 2026."
+  },
+  {
+    naziv: "Ugovor o korišćenju SaaS usluga",
+    ikonica: "🤝",
+    opis: "Okvirni ugovor koji reguliše odnos između korisnika i Art-Info doo.",
+    link: "#",
+    datum: "Verzija 2.0"
+  }
+];
+
+const pravniPodaci = {
+  firma: "Art-Info doo",
+  adresa: "Pljevaljska 24, 11050 Beograd",
+  pib: "12345678",
+  mb: "87654321",
+  pdv: "Ulazi u sistem PDV-a",
+  racun: "160-123456-78 (Banca Intesa)",
+  direktor: "Miloš Piletić",
+  kontakt: "office@art-info.rs • 011 / 454 - 8453"
+};
+---
+
+<Layout title="Pravne informacije | Art-Info" description="Pravna dokumenta i informacije o poslovanju">
+  
+  <div class="stranica-header">
+    <h1>Pravne <span class="accent">informacije</span></h1>
+    <p class="subtitle">Transparentnost i jasnoća u poslovanju</p>
+  </div>
+  
+  <!-- Podaci o firmi -->
+  <div class="firma-kartica">
+    <h2>Podaci o <span class="accent">firmi</span></h2>
+    
+    <div class="podaci-grid">
+      <div class="podatak">
+        <strong>Naziv:</strong> {pravniPodaci.firma}
+      </div>
+      <div class="podatak">
+        <strong>Adresa:</strong> {pravniPodaci.adresa}
+      </div>
+      <div class="podatak">
+        <strong>PIB:</strong> {pravniPodaci.pib}
+      </div>
+      <div class="podatak">
+        <strong>Matični broj:</strong> {pravniPodaci.mb}
+      </div>
+      <div class="podatak">
+        <strong>PDV:</strong> {pravniPodaci.pdv}
+      </div>
+      <div class="podatak">
+        <strong>Tekući račun:</strong> {pravniPodaci.racun}
+      </div>
+      <div class="podatak">
+        <strong>Direktor:</strong> {pravniPodaci.direktor}
+      </div>
+      <div class="podatak">
+        <strong>Kontakt:</strong> {pravniPodaci.kontakt}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Dokumenta -->
+  <h2>Pravna <span class="accent">dokumenta</span></h2>
+  
+  <div class="dokumenta-grid">
+    {dokumenti.map(dok => (
+      <div class="dokument-kartica">
+        <span class="dok-ikonica">{dok.ikonica}</span>
+        <div class="dok-sadrzaj">
+          <h3>{dok.naziv}</h3>
+          <p>{dok.opis}</p>
+          <p class="dok-datum"><small>{dok.datum}</small></p>
+          {dok.link !== "#" ? (
+            <a href={dok.link} class="dok-link">Preuzmi PDF →</a>
+          ) : (
+            <p class="dok-napomena"><em>U pripremi</em></p>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Način obavezivanja -->
+  <div class="obavezivanje-sekcija">
+    <h2>Kako se <span class="accent">pravno obavezujemo</span></h2>
+    
+    <div class="obavezivanje-grid">
+      <div class="obavezivanje-kartica">
+        <span class="broj">1</span>
+        <h3>Online prihvatanje uslova</h3>
+        <p>Prilikom registracije i korišćenja naših SaaS rešenja, korisnik prihvata Opšte uslove poslovanja. Ovo se smatra pravno obavezujućim u skladu sa Zakonom o elektronskoj trgovini.</p>
+      </div>
+      
+      <div class="obavezivanje-kartica">
+        <span class="broj">2</span>
+        <h3>Ugovor u pisanoj formi</h3>
+        <p>Za veće sisteme, licence i prilagođena rešenja, zaključujemo pisani Ugovor o poslovnoj saradnji koji potpisuju ovlašćena lica obe strane.</p>
+      </div>
+      
+      <div class="obavezivanje-kartica">
+        <span class="broj">3</span>
+        <h3>Faktura kao osnov</h3>
+        <p>Izdata faktura, zajedno sa prihvaćenim Opštim uslovima, predstavlja pravni osnov za korišćenje usluga i osnov za plaćanje.</p>
+      </div>
+    </div>
+    
+    <div class="napomena-box">
+      <p>⚖️ <strong>Važno:</strong> Svi pravni odnosi regulisani su Zakonom o obligacionim odnosima Republike Srbije. Za sve sporove nadležan je Privredni sud u Beogradu.</p>
+    </div>
+  </div>
+  
+  <!-- Posebne napomene o likvidaciji -->
+  <div class="status-napomena">
+    <div class="status-icon">ℹ️</div>
+    <div class="status-tekst">
+      <h3>Status firme</h3>
+      <p>Art-Info doo se trenutno nalazi u procesu likvidacije. Svi postojeći ugovori i obaveze se izvršavaju uredno, a za nove ugovore važe posebni uslovi. Za detalje, kontaktirajte nas direktno.</p>
+    </div>
+  </div>
+  
+  <!-- Kontakt za pravna pitanja -->
+  <div class="kontakt-pravni">
+    <h2>Pravna <span class="accent">pitanja</span></h2>
+    <p>Sva pitanja vezana za pravne aspekte poslovanja možete postaviti na:</p>
+    <div class="kontakt-info">
+      <a href="mailto:prav

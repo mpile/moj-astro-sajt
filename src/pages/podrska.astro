@@ -1,0 +1,409 @@
+---
+// src/pages/podrska.astro
+import Layout from '../layouts/layout.astro';
+
+const nivoiPodrske = [
+  {
+    nivo: "Osnovna podrška",
+    ikonica: "📧",
+    ukljuceno: [
+      "Podrška putem email-a",
+      "Odgovor u roku od 24h radnim danom",
+      "Baza znanja i dokumentacija",
+      "Video tutorijali za početak",
+      "Redovna ažuriranja softvera"
+    ],
+    dostupno: "Uz sve pakete"
+  },
+  {
+    nivo: "Prioritetna podrška",
+    ikonica: "⭐",
+    ukljuceno: [
+      "Sve iz osnovne podrške",
+      "Podrška putem telefona i email-a",
+      "Odgovor u roku od 4h radnim danom",
+      "Pomoć pri instalaciji i podešavanju",
+      "Individualna online obuka (2h mesečno)"
+    ],
+    dostupno: "Uz godišnju pretplatu i licence"
+  },
+  {
+    nivo: "Premium podrška",
+    ikonica: "👑",
+    ukljuceno: [
+      "Sve iz prioritetne podrške",
+      "Podrška 24/7 (uključujući vikende)",
+      "Odgovor u roku od 1h",
+      "Dodeljen lični menadžer podrške",
+      "Prilagođavanje softvera vašim potrebama",
+      "Mesečni izveštaj o radu sistema"
+    ],
+    dostupno: "Po dogovoru (dodatna nadoplata)"
+  }
+];
+
+const kanaliPodrske = [
+  {
+    naziv: "Email podrška",
+    ikonica: "📧",
+    detalji: "support@art-info.rs",
+    opis: "Za sva pitanja, prijavu grešaka i zahteve za pomoć."
+  },
+  {
+    naziv: "Telefon",
+    ikonica: "📞",
+    detalji: "011 / 454 - 8453",
+    opis: "Radnim danom od 09h do 17h."
+  },
+  {
+    naziv: "Baza znanja",
+    ikonica: "📚",
+    detalji: "U pripremi",
+    opis: "Članci, uputstva i video tutorijali za samostalno rešavanje problema."
+  },
+  {
+    naziv: "Udaljena pomoć",
+    ikonica: "🖥️",
+    detalji: "Po dogovoru",
+    opis: "Povezivanje na vaš sistem radi rešavanja složenijih problema."
+  }
+];
+---
+
+<Layout title="Podrška | Art-Info" description="Sve o podršci za naše softverske proizvode">
+  
+  <div class="stranica-header">
+    <h1>Korisnička <span class="accent">podrška</span></h1>
+    <p class="subtitle">Tu smo da vam pomognemo da maksimalno iskoristite naš softver</p>
+  </div>
+  
+  <!-- Uvod -->
+  <div class="uvod">
+    <p>Bez obzira na to koji paket koristite, možete računati na našu podršku. Cilj nam je da vaše poslovanje teče nesmetano i da iz softvera izvučete maksimum.</p>
+  </div>
+  
+  <!-- Nivoi podrške -->
+  <h2>Nivoi <span class="accent">podrške</span></h2>
+  
+  <div class="podrska-grid">
+    {nivoiPodrske.map(nivo => (
+      <div class="podrska-kartica">
+        <div class="podrska-header">
+          <span class="podrska-ikonica">{nivo.ikonica}</span>
+          <h3>{nivo.nivo}</h3>
+          <p class="dostupno">{nivo.dostupno}</p>
+        </div>
+        
+        <ul class="podrska-lista">
+          {nivo.ukljuceno.map(stavka => (
+            <li>✓ {stavka}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Kanali podrške -->
+  <div class="kanali-sekcija">
+    <h2>Kanali <span class="accent">komunikacije</span></h2>
+    
+    <div class="kanali-grid">
+      {kanaliPodrske.map(kanal => (
+        <div class="kanal-kartica">
+          <span class="kanal-ikonica">{kanal.ikonica}</span>
+          <h3>{kanal.naziv}</h3>
+          <p class="kanal-detalji">{kanal.detalji}</p>
+          <p class="kanal-opis">{kanal.opis}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Česta pitanja o podršci -->
+  <div class="faq-mini">
+    <h2>Brza <span class="accent">pitanja</span></h2>
+    
+    <div class="faq-lista">
+      <div class="faq-stavka">
+        <h3>❓ Kako prijaviti grešku?</h3>
+        <p>Pošaljite email na support@art-info.rs sa opisom problema, koracima koji dovode do greške i (opciono) slikom ekrana. Trudićemo se da odgovorimo u roku od 24h.</p>
+      </div>
+      
+      <div class="faq-stavka">
+        <h3>❓ Da li podrška radi vikendom?</h3>
+        <p>Osnovna i prioritetna podrška rade radnim danom od 09h do 17h. Premium podrška uključuje i vikende.</p>
+      </div>
+      
+      <div class="faq-stavka">
+        <h3>❓ Šta ako mi treba pomoć van radnog vremena?</h3>
+        <p>Uvek možete ostaviti email, odgovorićemo prvog radnog dana. Za hitne slučajeve, premium korisnici imaju direktan telefon.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA -->
+  <div class="cta-sekcija">
+    <h2>Imate pitanje?</h2>
+    <p>Kontaktirajte naš tim za podršku – tu smo da vam pomognemo.</p>
+    <div class="cta-buttons">
+      <a href="/kontakt" class="btn-primary">Pošaljite upit</a>
+      <a href="mailto:support@art-info.rs" class="btn-secondary">support@art-info.rs</a>
+    </div>
+  </div>
+  
+</Layout>
+
+<style>
+  .stranica-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .stranica-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+  }
+  
+  .accent {
+    color: var(--primary-medium);
+    font-weight: 300;
+  }
+  
+  .subtitle {
+    color: var(--gray-600);
+    font-size: 1.2rem;
+  }
+  
+  .uvod {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    font-size: 1.2rem;
+    color: var(--gray-700);
+  }
+  
+  h2 {
+    text-align: center;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  .podrska-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .podrska-kartica {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border-top: 6px solid var(--primary-light);
+  }
+  
+  .podrska-kartica:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .podrska-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  
+  .podrska-ikonica {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .podrska-header h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .dostupno {
+    color: var(--gray-500);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
+  .podrska-lista {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .podrska-lista li {
+    color: var(--gray-700);
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  
+  .podrska-lista li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Kanali */
+  .kanali-sekcija {
+    margin-bottom: 4rem;
+  }
+  
+  .kanali-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .kanal-kartica {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .kanal-kartica:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .kanal-ikonica {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .kanal-kartica h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .kanal-detalji {
+    font-weight: 600;
+    color: var(--primary-medium);
+    margin-bottom: 0.5rem;
+  }
+  
+  .kanal-opis {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  /* FAQ mini */
+  .faq-mini {
+    margin-bottom: 4rem;
+  }
+  
+  .faq-lista {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-stavka {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+  }
+  
+  .faq-stavka h3 {
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .faq-stavka p {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+  
+  /* CTA */
+  .cta-sekcija {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--gray-100) 0%, white 100%);
+    border-radius: 16px;
+  }
+  
+  .cta-sekcija h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .cta-sekcija p {
+    color: var(--gray-700);
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary-dark);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background: var(--primary-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .btn-secondary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--primary-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid var(--primary-dark);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  @media (max-width: 768px) {
+    .stranica-header h1 {
+      font-size: 2rem;
+    }
+    
+    .podrska-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .kanali-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>
